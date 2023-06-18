@@ -64,7 +64,6 @@ If you find the code, data, or models useful for your research, please consider 
     booktitle = {CVPR},
 }
 ```
-```
 
 ## License
 This repo is CC-BY-NC 4.0 licensed, as found in the [LICENSE](LICENSE) file.
