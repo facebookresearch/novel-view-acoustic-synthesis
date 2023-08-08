@@ -26,7 +26,7 @@ seed_everything(1)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--run-type", choices=["train", "eval"], default='train')
-parser.add_argument("--model-dir", default='data/models/novas')
+parser.add_argument("--model-dir", default='data/models')
 parser.add_argument("--dataset-dir", default='data/synthetic_dataset/v1')
 parser.add_argument("--metadata-file", default='metadata.json')
 parser.add_argument("--cam-position-file", default='camera_positions.json')
@@ -156,7 +156,7 @@ parser.add_argument("--no-prev-reverb", default=False, action='store_true')
 parser.add_argument("--highpass-filter", default=False, action='store_true')
 parser.add_argument("--single-channel", default=False, action='store_true')
 parser.add_argument("--dereverb-input", default=False, action='store_true')
-parser.add_argument("--dereverb-model", default='data/models/novas/wavenet_synthetic_v16_mono_rgb_mag_speaker_'
+parser.add_argument("--dereverb-model", default='data/models/wavenet_synthetic_v16_mono_rgb_mag_speaker_'
                                                 'pose_output_mono_no_delay_highpass_reg_conv_acausal_src_loc_dereverb_'
                                                 'single_channel/best_val.ckpt')
 parser.add_argument("--index-binaural", default=False, action='store_true')
@@ -265,14 +265,14 @@ def run(args):
 
     checkpoint_callback = ModelCheckpoint(
         dirpath=os.path.join(args.model_dir, args.version),
-        filename="novas_{epoch:04d}",
+        filename="{epoch:04d}",
         every_n_epochs=args.ckpt_interval,
         save_top_k=-1,
         verbose=True,
     )
 
     if args.eval_last or (args.auto_resume and not args.test):
-        existing_checkpoints = sorted(glob.glob(os.path.join(args.model_dir, args.version, f'novas_epoch=*.ckpt')))
+        existing_checkpoints = sorted(glob.glob(os.path.join(args.model_dir, args.version, f'epoch=*.ckpt')))
         if len(existing_checkpoints) != 0:
             args.from_pretrained = existing_checkpoints[-1]
             print(args.from_pretrained)
@@ -280,7 +280,7 @@ def run(args):
             print('There is no existing checkpoint!')
 
     if args.eval_ckpt != -1:
-        args.from_pretrained = os.path.join(args.model_dir, args.version, f'novas_epoch={args.eval_ckpt:04}.ckpt')
+        args.from_pretrained = os.path.join(args.model_dir, args.version, f'epoch={args.eval_ckpt:04}.ckpt')
         print(args.from_pretrained)
 
     if args.eval_best:
@@ -322,7 +322,7 @@ def run(args):
         # model.save_test_stats()
     elif args.test_all:
         args.eval_best = False
-        ckpt_paths = sorted(glob.glob(os.path.join(args.model_dir, args.version, f'novas_epoch=*.ckpt')))
+        ckpt_paths = sorted(glob.glob(os.path.join(args.model_dir, args.version, f'epoch=*.ckpt')))
         for ckpt_path in ckpt_paths:
             args.from_pretrained = ckpt_path
             print(ckpt_path)

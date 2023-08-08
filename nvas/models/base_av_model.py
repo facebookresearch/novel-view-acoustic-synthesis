@@ -49,7 +49,7 @@ def load_rt60_estimator(device):
     if RT60_ESTIMATOR is None:
         from nvas.models.visual_net import VisualNet
         RT60_ESTIMATOR = VisualNet(use_rgb=False, use_depth=False, use_audio=True)
-        pretrained_weights = 'data/models/dereverb/iclr/rt60_audio/best_val.pth'
+        pretrained_weights = 'data/models/rt60_estimator.pth'
         RT60_ESTIMATOR.load_state_dict(torch.load(pretrained_weights, map_location='cpu')['predictor'])
         RT60_ESTIMATOR.to(device=device).eval()
 

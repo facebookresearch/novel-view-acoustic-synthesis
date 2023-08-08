@@ -92,7 +92,7 @@ class ViGAS(BaseAVModel):
 
         if args.encode_sincos:
             non_learnable_feat_dim += sum([args.use_tgt_pose, args.use_speaker_pose, args.use_tgt_rotation, args.use_speaker_pose_wrt_tgt])
-        if args.dataset == 'appen' and not args.use_cam_index and not (non_learnable_feat_dim == 0):
+        if args.dataset == 'replay_nvas' and not args.use_cam_index and not (non_learnable_feat_dim == 0):
             non_learnable_feat_dim += 4
         if non_learnable_feat_dim == 0:
             non_learnable_feat_dim = 1
@@ -101,7 +101,7 @@ class ViGAS(BaseAVModel):
         layers_per_block = args.layers_per_block
         wavenet_channels = 64
 
-        feat = 512 if self.args.dataset == 'synthetic' else 672
+        feat = 512 if self.args.dataset == 'soundspaces_nvas' else 672
         if args.use_rgb or args.use_tgt_rgb or args.use_tgt_rgb_pano:
             layers = list(torchvision.models.resnet18(pretrained=True).children())[0:-2]
             if args.use_tgt_bboxes_as_mask:

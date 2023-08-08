@@ -18,15 +18,15 @@ This repo contains the code for the NVAS benchmark and our proposed model ViGAS.
 
 1. Training on SoundSpaces-NVAS
 ```
-python trainer.py --version soundspaces_nvas --model wavenet --dataset soundspaces_nvas --dataset-dir data/synthetic_dataset/v16 --num-channel 2 --n-gpus 8 --num-node 2 --num-worker 4 --batch-size 24 --gpu-mem32 --decode-wav --slurm --max-epochs 1000 --use-tgt-pose --use-tgt-rotation --encode-sincos --mag --one-speaker --auto-resume --audio-len 16000 --remove-delay --highpass-filter --use-rgb --remove-hyperconv --acausal --use-speaker-bboxes --metadata-file cleaned_metadata_v3.json
+python trainer.py --version soundspaces_nvas --model vigas --dataset soundspaces_nvas --dataset-dir data/synthetic_dataset/v16 --num-channel 2 --n-gpus 1 --num-node 16 --num-worker 4 --batch-size 24 --gpu-mem32 --decode-wav --slurm --max-epochs 1000 --use-tgt-pose --use-tgt-rotation --encode-sincos --mag --one-speaker --auto-resume --audio-len 16000 --remove-delay --highpass-filter --use-rgb --remove-hyperconv --acausal --use-speaker-bboxes --metadata-file cleaned_metadata_v3.json --test --eval-best
 ```
 2. Training on Replay-NVAS
 ```
-python trainer.py --version replay_nvas --model vigas --dataset replay_nvas --dataset-dir data/replay_dataset/v3 --num-channel 2 --n-gpus 8 --num-node 2 --num-worker 4 --batch-size 24 --gpu-mem32 --decode-wav --slurm --max-epochs 600 --mag --one-speaker --auto-resume --audio-len 16000 --highpass-filter --use-rgb --remove-hyperconv --acausal --use-speaker-bboxes --remove-delay --encode-sincos --use-tgt-pose --use-tgt-rotation --metadata-file metadata_v2.json --cam-position-file camera_positions_fixed_rotation.json --rotate-rel-pose
+python trainer.py --version replay_nvas --model vigas --dataset replay_nvas --dataset-dir data/appen_dataset/v3 --num-channel 2 --n-gpus 8 --num-node 2 --num-worker 4 --batch-size 24 --gpu-mem32 --decode-wav --slurm --max-epochs 600 --mag --one-speaker --auto-resume --audio-len 16000 --highpass-filter --use-rgb --remove-hyperconv --acausal --use-speaker-bboxes --remove-delay --encode-sincos --use-tgt-pose --use-tgt-rotation --metadata-file metadata_v2.json --cam-position-file camera_positions_fixed_rotation.json --rotate-rel-pose
 ```
 
 
-To test the model with the best checkpoint, add the following flags to the training command:
+To test the model with the pretrained checkpoint, add the following flags to the training command:
 ```
 --test --eval-best
 ```
