@@ -18,11 +18,11 @@ This repo contains the code for the NVAS benchmark and our proposed model ViGAS.
 
 1. Training on SoundSpaces-NVAS
 ```
-python trainer.py --version soundspaces_nvas --model vigas --dataset soundspaces_nvas --dataset-dir data/synthetic_dataset/v16 --num-channel 2 --n-gpus 1 --num-node 16 --num-worker 4 --batch-size 24 --gpu-mem32 --decode-wav --slurm --max-epochs 1000 --use-tgt-pose --use-tgt-rotation --encode-sincos --mag --one-speaker --auto-resume --audio-len 16000 --remove-delay --highpass-filter --use-rgb --remove-hyperconv --acausal --use-speaker-bboxes --metadata-file cleaned_metadata_v3.json --test --eval-best
+python nvas/trainer.py --version soundspaces_nvas --model vigas --dataset soundspaces_nvas --dataset-dir data/synthetic_dataset/v16 --num-channel 2 --n-gpus 1 --num-node 16 --num-worker 4 --batch-size 24 --gpu-mem32 --decode-wav --slurm --max-epochs 1000 --use-tgt-pose --use-tgt-rotation --encode-sincos --mag --one-speaker --auto-resume --audio-len 16000 --remove-delay --highpass-filter --use-rgb --remove-hyperconv --acausal --use-speaker-bboxes --metadata-file cleaned_metadata_v3.json --test --eval-best
 ```
 2. Training on Replay-NVAS
 ```
-python trainer.py --version replay_nvas --model vigas --dataset replay_nvas --dataset-dir data/appen_dataset/v3 --num-channel 2 --n-gpus 8 --num-node 2 --num-worker 4 --batch-size 24 --gpu-mem32 --decode-wav --slurm --max-epochs 600 --mag --one-speaker --auto-resume --audio-len 16000 --highpass-filter --use-rgb --remove-hyperconv --acausal --use-speaker-bboxes --remove-delay --encode-sincos --use-tgt-pose --use-tgt-rotation --metadata-file metadata_v2.json --cam-position-file camera_positions_fixed_rotation.json --rotate-rel-pose
+python nvas/trainer.py --version replay_nvas --model vigas --dataset replay_nvas --dataset-dir data/appen_dataset/v3 --num-channel 2 --n-gpus 8 --num-node 2 --num-worker 4 --batch-size 24 --gpu-mem32 --decode-wav --slurm --max-epochs 600 --mag --one-speaker --auto-resume --audio-len 16000 --highpass-filter --use-rgb --remove-hyperconv --acausal --use-speaker-bboxes --remove-delay --encode-sincos --use-tgt-pose --use-tgt-rotation --metadata-file metadata_v2.json --cam-position-file camera_positions_fixed_rotation.json --rotate-rel-pose
 ```
 
 
@@ -33,23 +33,13 @@ To test the model with the pretrained checkpoint, add the following flags to the
 
 
 ## Data
-### SoundSpaces-NVAS Dataset 
-Download the data from the links below and unzip them under ``data/`` directory
-```angular2html
-wget http://dl.fbaipublicfiles.com/nvas/soundspaces_nvas.tar.gz
+Run the following script to download SoundSpaces-NVAS and Replay-NVAS:
+```
+bash download_data.sh
 ```
 
-### Replay-NVAS Dataset
-Download the data from the links below and unzip them under ``data/`` directory
-```
-wget http://dl.fbaipublicfiles.com/vam/replay_nvas.tar.gz
-```
+Note that the downloaded Replay data is for the NVAS task. To download the full Replay dataset, please refer to [Replay](https://github.com/facebookresearch/replay_dataset).
 
-## Pretrained Models
-Run the command below to download pretrained weights. The dereverberator and RT60 estimator were trained on SoundSpaces-Speech.
-```
-wget http://dl.fbaipublicfiles.com/nvas/pretrained-models.tar.gz
-```
 
 ## Contributing
 See the [CONTRIBUTING](CONTRIBUTING.md) file for how to help out.

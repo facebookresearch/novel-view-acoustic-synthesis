@@ -27,7 +27,7 @@ def update_args(args, hparams):
 
 def load_dereverberator(dereverb_model, device):
     global DEREVERBERATOR
-    from trainer import parser
+    from nvas.trainer import parser
     if DEREVERBERATOR is None:
         state_dict = torch.load(dereverb_model, map_location='cpu')
         args = parser.parse_args("")

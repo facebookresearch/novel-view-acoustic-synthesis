@@ -311,7 +311,6 @@ class BaseAVModel(pl.LightningModule):
         
         if test:
             if 'mag_distance' in self.metrics:
-                print(stats['mag_distance'].shape)
                 self.test_stats['mag_distance'] += stats['mag_distance'].cpu().numpy().tolist()
                 
             # self.test_stats['src_tgt_dist'] += batch['src_tgt_dist'].cpu().numpy().tolist()
